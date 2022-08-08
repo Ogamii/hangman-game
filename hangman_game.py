@@ -1,6 +1,6 @@
 import random
 import os
-from turtle import clear
+import pyfiglet
 
 
 def normalize(s):
@@ -62,8 +62,11 @@ def autofill():
 
 
 def interface():
+    os.system("cls")
     num_letters = len(word_choice())
     message = list("_" * num_letters)
+    titulo = pyfiglet.figlet_format("HANGMAN  GAME")
+    print(titulo)
     print("Adivina la palabra: ")
     print("".join(message))
     autofill()   
