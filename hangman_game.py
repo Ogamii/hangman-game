@@ -1,4 +1,13 @@
 import random
+import os
+from turtle import clear
+
+
+def normalize(s):
+    replacements =""
+    replacements = replacements.maketrans("áéíóú","aeiou")
+    s = s.translate(replacements)
+    return s
 
 
 def word_choice():
@@ -10,13 +19,58 @@ def word_choice():
         keys = [i for i in range(1, num_words+1)]
     word_list = {keys[i]: values[i] for i in range(0, num_words) }
     random_key = random.randint(0,num_words-1)
-    random_word =word_list[random_key]
+    random_word = normalize(word_list.get(random_key))
     return random_word
-    
+
+
+def autofill():
+    f = 0
+    state = True
+    word = list(word_choice())
+    num_letters = len(word)
+    message = list("_" * num_letters)
+    while f <= 5 and state == True:
+        letter_count = 0
+        if message.count("_") != 0:
+            try:
+                letter = input("Ingresa una letra (exit para salir): ")
+                if letter == "exit":
+                    break
+                if letter.isalpha() != True:
+                    raise TypeError("Ingresar solo letras")
+                if len(letter) != 1:
+                    raise TypeError("Debe ingresar una y solo una letra")
+                for i in range(0,num_letters):
+                    if letter == word[i]:
+                        message[i] = letter
+                        letter_count += 1
+                if letter_count == 0:
+                    f += 1
+                os.system("cls")
+                print("\n")
+                print("".join(message))
+            except TypeError as te:
+                print(te)
+                print("\n")                
+        else:
+                print("¡¡Felicidades ganaste!!")
+                print("la palabra era: " + "".join(message))
+                state = False 
+    if f > 5 and state == True:
+        print("Perdiste")
+        print("la palabra era: " + "".join(word))  
+
+
+def interface():
+    num_letters = len(word_choice())
+    message = list("_" * num_letters)
+    print("Adivina la palabra: ")
+    print("".join(message))
+    autofill()   
 
 
 def run():
-    print(word_choice())
+    interface()
 
 
 if __name__ == '__main__':
