@@ -29,16 +29,16 @@ def autofill():
     word = list(word_choice())
     num_letters = len(word)
     message = list("_" * num_letters)
-    while f <= 5 and state == True:
+    while f <= 6 and state == True:
         letter_count = 0
         if message.count("_") != 0:
             try:
                 letter = input("Ingresa una letra (exit para salir): ")
                 if letter == "exit":
                     break
-                if letter.isalpha() != True:
+                elif letter.isalpha() != True:
                     raise TypeError("Ingresar solo letras")
-                if len(letter) != 1:
+                elif len(letter) != 1:
                     raise TypeError("Debe ingresar una y solo una letra")
                 for i in range(0,num_letters):
                     if letter == word[i]:
@@ -47,18 +47,86 @@ def autofill():
                 if letter_count == 0:
                     f += 1
                 os.system("cls")
+                draw(f)
                 print("\n")
                 print("".join(message))
             except TypeError as te:
                 print(te)
                 print("\n")                
         else:
-                print("¡¡Felicidades ganaste!!")
+                print(pyfiglet.figlet_format("¡¡Felicidades ganaste!!"))
                 print("la palabra era: " + "".join(message))
                 state = False 
-    if f > 5 and state == True:
-        print("Perdiste")
+    if f > 7 and state == True:
+        draw(6)
+        print(pyfiglet.figlet_format("Perdiste"))
         print("la palabra era: " + "".join(word))  
+
+
+def draw(f):
+    if f == 0: #Here starts the art
+        print('''
+ +----+
+ |    |
+      |
+      |
+      |
+      |
+=========''')
+    elif f == 1:
+        print('''
+ +----+
+ |    |
+ O    |
+      |
+      |
+      |
+=========''')
+    elif f == 2:
+        print('''
+ +----+
+ |    |
+ O    |
+ |    |
+      |
+      |
+=========''')
+    elif f == 3:
+        print('''
+ +----+
+ |    |
+ O    |
+/|    |
+      |
+      |
+=========''')
+    elif f == 4:
+        print('''
+ +----+
+ |    |
+ O    |
+/|\   |
+      |
+      |
+=========''')
+    elif f == 5:
+        print('''
+ +----+
+ |    |
+ O    |
+/|\   |
+/     |
+      |
+=========''')
+    elif f == 6:
+        print('''
+ +----+
+ |    |
+ O    |
+/|\   |
+/ \   |
+      |
+=========''')
 
 
 def interface():
